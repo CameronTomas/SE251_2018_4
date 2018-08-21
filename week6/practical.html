@@ -34,7 +34,7 @@
 	<h3>Highest Paid Salary</h3>
 	<div class="highest"></div>
 	<h3>Highest Average Paid Salery</h3>
-	<h3 class="averageanalyst"></h3>
+	<h3 class="average"></h3>
 </section >
 
 <section  id="web-developer-area" >
@@ -111,14 +111,47 @@ fetch('http://ict.neit.edu/evanrense/salaries.php')
 		document.querySelector("#database-analyst-area .first").innerHTML=higestSalary(dataBase).name.first
 		document.querySelector("#database-analyst-area .last").innerHTML=higestSalary(dataBase).name.last
 		document.querySelector("#database-analyst-area .highest").innerHTML=higestSalary(dataBase).salary
+		document.querySelector("#database-analyst-area .average").innerHTML=averageSalary(dataBase)
 
 		document.querySelector("#web-developer-area .first").innerHTML=higestSalary(webDeveloper).name.first
 		document.querySelector("#web-developer-area .last").innerHTML=higestSalary(webDeveloper).name.last
 		document.querySelector("#web-developer-area .highest").innerHTML=higestSalary(webDeveloper).salary
+		document.querySelector("#web-developer-area .average").innerHTML=averageSalary(webDeveloper)
 
 		document.querySelector("#software-engineer-area .first").innerHTML=higestSalary(softwareDeveloper).name.first
 		document.querySelector("#software-engineer-area .last").innerHTML=higestSalary(softwareDeveloper).name.last
 		document.querySelector("#software-engineer-area .highest").innerHTML=higestSalary(softwareDeveloper).salary
+		document.querySelector("#software-engineer-area .average").innerHTML=averageSalary(softwareDeveloper)
+		var HAdata = document.querySelector("#database-analyst-area .average");
+		var HAweb = document.querySelector("#web-developer-area .average");
+		var HAsoft = document.querySelector("#software-engineer-area .average");
+		console.log(HAdata);
+		if(Number(HAdata.innerHTML) > Number(HAweb.innerHTML )&& Number(HAdata.innerHTML) > Number(HAsoft.innerHTML)){
+	
+			HAdata.style.color = 'green';
+			
+		}else if(Number(HAweb.innerHTML) > Number(HAdata.innerHTML )&& Number(HAweb.innerHTML) > Number(HAsoft.innerHTML)){
+	
+			HAweb.style.color = 'green';
+	
+		} else if(Number(HAsoft.innerHTML) > Number(HAweb.innerHTML )&& Number(HAsoft.innerHTML) > Number(HAdata.innerHTML)){
+	
+			HAsoft.style.color = 'green';
+	
+		}
+		var searchF = document.querySelector("#search-submit");
+		searchF.addEventListener("click",findN);
+		function findN(){
+			var firstN = document.querySelector("#first-name");
+			var lastN = document.querySelector("#last-name");
+			for(i = 0; i < myJson.length; i++){
+				if(myJson[i].name.first === firstN.value && myJson[i].name.last === lastN.value){
+					console.log(myJson[i]);
+					document.querySelector("#search-area .output").innerHTML=myJson[i].name.first +" "+ myJson[i].name.last + " " +myJson[i].jobTitle +" "+ myJson[i].salary;
+				}
+			}
+		}
+		
       console.log(myJson);});
 function higestSalary(listA){
 	var high = listA[0];
@@ -132,5 +165,13 @@ function higestSalary(listA){
 	console.log(high);
 	return high;
 	
+}
+function averageSalary(listA){
+	var total = 0;
+	for (i = 0; i < listA.length; i++){
+		total += Number(listA[i].salary);
+	}
+	total = total / listA.length;
+	return total;
 }
 </script>
