@@ -151,7 +151,22 @@ fetch('http://ict.neit.edu/evanrense/salaries.php')
 				}
 			}
 		}
-		
+		var listD = document.querySelector("#list-database-analyst");
+		listD.addEventListener('click', function() {
+			console.log(dataBase);
+			document.querySelector("#list-output .output").innerHTML=listPep(dataBase)});
+
+		var listW = document.querySelector("#list-web-developer");
+
+		listW.addEventListener('click', function() {
+			console.log(webDeveloper);
+			document.querySelector("#list-output .output").innerHTML=listPep(webDeveloper)});
+
+		var listS = document.querySelector("#list-software-engineer")
+			listS.addEventListener('click', function() {
+			console.log(softwareDeveloper);
+			document.querySelector("#list-output .output").innerHTML=listPep(softwareDeveloper)});
+
       console.log(myJson);});
 function higestSalary(listA){
 	var high = listA[0];
@@ -172,6 +187,25 @@ function averageSalary(listA){
 		total += Number(listA[i].salary);
 	}
 	total = total / listA.length;
-	return total;
+	
+	return total.toFixed(2);
+}
+function listPep(listA){
+	var str = "";
+	for(i in listA){
+        str += "<div id ='"+i+"' class ='border'>"
+			str += '<p>';
+         str += listA[i].name.first + " " + listA[i].name.last;
+         str += '</p>';
+		 str += '<p>';
+         str += listA[i].salary;
+         str += '</p>';
+		 str += '<p>';
+         str += listA[i].jobTitle;
+         str += '</p>';
+         str += '</div>';
+		 
+    }
+	return str;
 }
 </script>
